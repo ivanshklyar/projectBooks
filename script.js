@@ -1,12 +1,14 @@
+
 class Book {
-    constructor(title, author, description, genre, pages, status, id) {
+    constructor(title, author, id, description, genre, pages, status) {
         this.title = title;
         this.author = author;
+        this.id = id;
         this.description = description;
         this.genre = genre;
         this.pages = pages;
         this.status = status;
-        this.id = id;
+
     }
 
     static getBooks() {
@@ -20,17 +22,18 @@ class Book {
 
     static addBook(book) {
         const books = Book.getBooks();
-        books[books.length] = book;
+        books.push(book);
         localStorage.setItem('books', JSON.stringify(books));
     }
 
     static removeBook(id) {
+       //console.log("id");
         const books = Book.getBooks();
 
         const newBooks = books.filter((book) => book.id !== id);
         newBooks.forEach((object, index) => {
-            object.index = index + 1;
-        });
+          object.index = index + 1;
+      });
         localStorage.setItem('books', JSON.stringify(newBooks));
     }
 
@@ -42,8 +45,8 @@ class Book {
         listItem.innerHTML = `
         <div class="book">
         <div class="list-txt">
+        
         <p>"${book.title}"</p>
-        <p>by</p>
         <p>${book.author}</p>
         <p>${book.description}</p>
         <p>${book.genre}</p>
@@ -51,7 +54,7 @@ class Book {
         <p>${book.status}</p>
         
         </div>
-        <button id=${book.id} type="submit" class="remove">Remove</button>
+        <button id = ${book.id} type="submit" class="remove">Remove</button>
         </div>
         `;
 
@@ -65,6 +68,7 @@ class Book {
     }
 
     static deleteBook(targetel) {
+
         if (targetel.classList.contains('remove')) {
             targetel.parentElement.remove();
         }
@@ -84,7 +88,7 @@ form.addEventListener('submit', () => {
     const status = document.querySelector('#status').value;
     const id = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
 
-    const book = new Book(title, author, description, genre, pages, id);
+    const book = new Book(title, author, description, genre, pages, status, id);
 
     Book.addBookToList(book);
 
@@ -96,7 +100,7 @@ form.addEventListener('submit', () => {
 document.querySelector('#book-list').addEventListener('click', (e) => {
     Book.deleteBook(e.target);
 
-    Book.removeBook(e.target.id);
+    Book.removeBook(e);
 });
 
 const addNewList = document.getElementById('add-new-book');
@@ -123,17 +127,3 @@ openForm.addEventListener('click', showForm);
 
 addNewList.addEventListener('click', showBook);
 
-
-const dateTime = document.getElementById('date');
-
-/* global luxon, luxon */
-
-const date = () => {
-    window.addEventListener('load', () => {
-        const { DateTime } = luxon;
-        this.today = DateTime.now();
-        dateTime.textContent = this.today.toLocaleString(DateTime.DATETIME_MED);
-    });
-};
-
-date();
