@@ -27,24 +27,23 @@
     <input type="text" id="description" placeholder="Description."><br>
     <input type="number" id="pages" placeholder="Pages"><br>
     <input type="text" id="genre" placeholder="Genre"><br>
-    <input type = "text" id="status" list = "status1" name="status" placeholder="Status">
-    <datalist id = "status1">
-      <option value = "Waiting">
-      <option value = "Reading">
-      <option value = "Done">
-    </datalist>
-
-    <button class="btn-add" type=s"submit">Add</button>
+    <label for="status">Status</label>
+    <select name="status" id="status">
+      <option value="waiting">Waiting</option>
+      <option value="reading">Reading</option>
+      <option value="done">Done</option>
+       </select>
+    <button class="btn-add" type="submit">Add</button>
   </form>
 </section>
 
 <footer>
-  Ivan Nepobedimyi!
+  Ivan !
 </footer>
 
 
 <script src="script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/luxon@2.0.2/build/global/luxon.min.js"></script>
+
 
 </body>
 </html>
